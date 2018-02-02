@@ -1,19 +1,31 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { RestLink } from 'apollo-link-rest';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from 'react-apollo';
 
-class App extends Component {
+import AppCenterApps from './AppCenterApps';
+
+const restLink = new RestLink({
+  uri: 'https://apps.exactonline.com/nl/nl-NL/V2',
+  headers: {
+    "X-Requested-With": "XMLHttpRequest" // the api will return a http status code 500 internal server error without this header
+  },
+});
+
+const client = new ApolloClient({
+  link: restLink,
+  cache: new InMemoryCache(),
+});
+
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <ApolloProvider client={client}>
+        <AppCenterApps />
+      </ApolloProvider>
     );
   }
 }
