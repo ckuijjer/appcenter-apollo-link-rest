@@ -7,20 +7,6 @@ import handleLoadingAndErrors from './handleLoadingAndErrors';
 import Logger from './Logger';
 import AppCenterAppCard from './AppCenterAppCard';
 
-// const QUERY = gql`
-//   query Apps {
-//     apps @rest(path: "/Apps", type: "Apps") {
-//       hasMore
-//       startPageNo
-//       finalPageNo
-//       applicationList {
-//         applicationDetailId
-//         logoUrl
-//       }
-//     }
-//   }
-// `;
-
 const QUERY = gql`
   query Apps {
     apps @rest(path: "/Apps", type: "Apps") {
