@@ -30,6 +30,8 @@ const QUERY = gql`
         ApplicationDetailId
         ApplicationName
         LogoUrl
+        AppSeoName
+        PartnerName
       }
     }
   }
