@@ -2,21 +2,15 @@ import React from 'react';
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
-import { RestLink } from 'apollo-link-rest';
+import apolloLogger from 'apollo-link-logger';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 
+import restLink from './restLink';
 import AppCenterApps from './AppCenterApps';
 
-const restLink = new RestLink({
-  uri: 'https://apps.exactonline.com/nl/nl-NL/V2',
-  headers: {
-    "X-Requested-With": "XMLHttpRequest" // the api will return a http status code 500 internal server error without this header
-  },
-});
-
 const client = new ApolloClient({
-  link: restLink,
+  link: ApolloLink.from([apolloLogger, restLink]),
   cache: new InMemoryCache(),
 });
 

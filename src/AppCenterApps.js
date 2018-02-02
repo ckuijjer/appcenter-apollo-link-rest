@@ -6,12 +6,29 @@ import handleLoadingAndErrors from './handleLoadingAndErrors';
 import Logger from './Logger';
 import AppCenterAppCard from './AppCenterAppCard';
 
+// const QUERY = gql`
+//   query Apps {
+//     apps @rest(path: "/Apps", type: "Apps") {
+//       hasMore
+//       startPageNo
+//       finalPageNo
+//       applicationList {
+//         applicationDetailId
+//         logoUrl
+//       }
+//     }
+//   }
+// `;
+
 const QUERY = gql`
   query Apps {
     apps @rest(path: "/Apps", type: "Apps") {
-      ApplicationList
       StartPageNo
       FinalPageNo
+      ApplicationList {
+        ApplicationDetailId
+        LogoUrl
+      }
     }
   }
 `;
@@ -19,11 +36,11 @@ const QUERY = gql`
 const AppCenterApps = ({ data }) => {
   return (
     <React.Fragment>
-      <div>
+      {/* <div>
         {data.apps.ApplicationList.map(app => (
           <AppCenterAppCard {...app} />
         ))}
-      </div>
+      </div> */}
       <Logger data={data} />
     </React.Fragment>
   );
